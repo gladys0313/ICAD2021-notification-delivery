@@ -16,20 +16,11 @@
 <!--                 <h3> Jing Yang, Tristan Cinquin, Gábor Sörös </h3> -->
                 </center>              
 
-                <p> We train a neural network to transform artificial notification sounds into different musical timbres. In addition, we envision notification timbre transfer as a way of less distracting information delivery, by embedding a notificaion into the music piece that a user is listening to after the timbre transfer. </p>
+                <p> We present a novel method to deliver artificial notification sounds that have been commonly used in digital devices and for popular applications in a less intrusive but still adequately noticable manner. </p>
 
-                <p> Our notification timbre transfer network is based on the CycleGAN structure, trained with unpaired samples. For the source domain, to tackle the issues of ambiguous timbre definition and insufficient training data of notification sounds, we use video game music that shares similar timbral features. The video game music was collected from the following YouTube sites: <cite><a href="https://www.youtube.com/watch?v=JCF0lbqCWl8">video game music 1</a></cite>, <cite><a href="https://www.youtube.com/watch?v=iUdXKu31tQI">video game music 2</a></cite>, <cite><a href="https://www.youtube.com/watch?v=sJonZxlGDKc">video game music 3</a></cite>, <cite><a href="https://www.youtube.com/watch?v=nxbLqkGa4Kk">video game music 4</a></cite>, <cite><a href="https://www.youtube.com/watch?v=AaUAIPKdzls">video game music 5</a></cite>, <cite><a href="https://www.youtube.com/watch?v=sfyvAQemik4">video game music 6</a></cite>. </p>
+                <p> More specifically, we first transfer the musical timbre of a notification sound into the timbre of the background music that a user is listening to, while preserving the original notification melody envelope to still associate the notification with its interpretation. Next, we harmoniously embed the timbre-transformed notification into the background music for delivery. In order to achieve a seamless integration, we adjust the amplitude, tempo, and the overall octave level of the notification to match these features of the music, and we embed the notification with fade-in and fade-out effects, while the embedding spot is selected by algorithmically checking and finding the segment of the music that shares the most similar musical features with the notification sound. </p>
 
-                <p> For the target domain, we collect music of different instrument timbres from the <cite><a href="https://homes.cs.washington.edu/~thickstn/musicnet.html">MusicNet</a></cite> dataset and YouTube:</p>
-                <p>
-                <ol>
-                    <li>Piano: MusicNet</li>
-                    <li>Cello: MusicNet</li>
-                    <li>Guitar: <cite><a href="https://www.youtube.com/watch?v=C_GW8XnEyY0">Best of Bach - Classical Guitar Compilation - BWV</a></cite></li>
-                    <li>Piano-accompanied violin: MusicNet</li>
-                    <li>Orchestra instruments (string, woodwind, brass, percussion sections, etc.): <cite><a href="https://www.youtube.com/watch?v=5VB1RvyfISM">The Best of Classical Music</a></cite></li>
-                </ol>
-                </p>
+                <p> We collected 81 popular notification sounds from iOS/Android system and applications like Skype, please refer to our <cite><a href="https://drive.google.com/drive/folders/1As4qLaiQs7FgjWPCr_jWbk5YSZSj1a8_?usp=sharing">notification sound dataset</a></cite>). </p>
 
 
             </div><!-- /.blurb -->
