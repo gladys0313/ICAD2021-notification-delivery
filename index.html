@@ -16,11 +16,375 @@
 <!--                 <h3> Jing Yang, Tristan Cinquin, Gábor Sörös </h3> -->
                 </center>              
 
-                <p> We present a novel method to deliver artificial notification sounds that have been commonly used in digital devices and for popular applications in a less intrusive but still adequately noticable manner. </p>
+                <p> We present a novel method to deliver artificial notification sounds that have been commonly used in digital devices and for popular applications in a less intrusive but still adequately noticeable manner. </p>
 
-                <p> More specifically, we first transfer the musical timbre of a notification sound into the timbre of the background music that a user is listening to, while preserving the original notification melody envelope to still associate the notification with its interpretation. Next, we harmoniously embed the timbre-transformed notification into the background music for delivery. In order to achieve a seamless integration, we adjust the amplitude, tempo, and the overall octave level of the notification to match these features of the music, and we embed the notification with fade-in and fade-out effects, while the embedding spot is selected by algorithmically checking and finding the segment of the music that shares the most similar musical features with the notification sound. </p>
+                <p> Since digital music has been widespread and many people have the habit of conducting activities over music, we develop our notification delivery method by using the concept of "embedding notification into the user's music". More specifically, we first transfer the musical timbre of a notification sound into the timbre of the background music that a user is listening to, while preserving the original notification melody envelope to still associate the notification with its interpretation. Next, we harmoniously embed the timbre-transformed notification into the background music for delivery. In order to achieve a seamless integration, we adjust the amplitude, tempo, and the overall octave level of the notification to match these features of the music, and we embed the notification into music with fade-in and fade-out effects, while the embedding spot is selected by algorithmically checking and finding the segment of the music that shares the most similar musical features with the notification sound. </p>
 
-                <p> We collected 81 popular notification sounds from iOS/Android system and applications like Skype, please refer to our <cite><a href="https://drive.google.com/drive/folders/1As4qLaiQs7FgjWPCr_jWbk5YSZSj1a8_?usp=sharing">notification sound dataset</a></cite>). </p>
+                <p> We collected 81 commonly used notification sounds from iOS/Android system and applications like Skype, please refer to our <cite><a href="https://drive.google.com/drive/folders/1As4qLaiQs7FgjWPCr_jWbk5YSZSj1a8_?usp=sharing">notification sound dataset</a></cite>. </p>
+
+<!--                 <p> For the target domain, we collect music of different instrument timbres from the <cite><a href="https://homes.cs.washington.edu/~thickstn/musicnet.html">MusicNet</a></cite> dataset and YouTube:</p>
+                <p>
+                <ol>
+                    <li>Piano: MusicNet</li>
+                    <li>Cello: MusicNet</li>
+                </ol>
+                </p> -->
+
+
+
+                <h2 style="text-align:center">Part I: Notification timbre transfer</h2>
+                    <p> We implement a melody extraction-based approach to notification timbre transfer. To this end, we extend the original <cite><a href="https://ieeexplore.ieee.org/document/8461329">CREPE model</a></cite> to achieve a better melody extraction performance. After melody extraction, we implement timbre transfer using MIDI interface. In the following, we show examples of notification timbre transfer results that are based on (1) the original CREPE model and (2) our extended model. Our model can better preserve the original notification melody. The following examples are all based on the transfer to the timbre of piano. </p>
+
+                    <table style="width:90%; margin: 0px auto;">
+                        <tbody><tr>
+                            <th></th>
+                            <th>original notification sound</th>
+                            <th>timbre-transformed notification (original CREPE)</th>
+                            <th>timbre-transformed notification (our model)</th>
+                        </tr>
+
+
+                        <tr style="text-align: center;">
+                            <td>Example 1</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/64_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/64_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/64_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>
+
+                        <tr style="text-align: center;">
+                            <td>Example 2</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/81_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/81_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/81_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>
+
+                        <tr style="text-align: center;">
+                            <td>Example 3</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/30_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/30_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/30_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>
+
+                        <tr style="text-align: center;">
+                            <td>Example 4</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/21_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/21_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/21_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>     
+
+                        <tr style="text-align: center;">
+                            <td>Example 5</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/32_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/32_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/32_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>
+
+                        <tr style="text-align: center;">
+                            <td>Example 6</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/54_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/54_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/54_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>  
+
+                        <tr style="text-align: center;">
+                            <td>Example 7</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/67_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/67_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/67_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>                          
+
+                        <tr style="text-align: center;">
+                            <td>Example 8</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/82_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/82_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/82_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>      
+
+                        <tr style="text-align: center;">
+                            <td>Example 9</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/61_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/61_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/61_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>         
+
+                        <tr style="text-align: center;">
+                            <td>Example 10</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/88_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/88_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/88_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>       
+
+                        <tr style="text-align: center;">
+                            <td>Example 11</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/33_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/33_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/33_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>   
+
+                        <tr style="text-align: center;">
+                            <td>Example 12</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/90_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/90_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/90_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>  
+
+                        <tr style="text-align: center;">
+                            <td>Example 13</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/92_ori.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/92_crepe.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part1/92_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>                                                                                                                                        
+                     </tbody></table>
+
+                     <br>
+                     <br>
+
+
+                <h2 style="text-align:center">Part II: Less Intrusive Delivery of Notification Sounds</h2>   
+                    <p>In this part, we show examples of delivering notification sounds using our method. As comparison, we also show examples of delivering notification sounds using the standard method in digital devices nowadays, i.e., a notification will be played unchanged in parallel to being played music. </p>
+
+                    <p> We use this notification sound in the following examples.</p>
+                     <table style="width:90%; margin: 0px auto;">
+                        <tbody><tr>
+                            <th>the original notification sound</th>
+                        </tr>
+
+                        <tr style="text-align: center;">
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part2/21.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                        </tr>
+                     </tbody></table>
+
+
+                    <table style="width:90%; margin: 0px auto;">
+                        <tbody><tr>
+                            <th></th>
+                            <th>our notification delivery method</th>
+                            <th>standard notification delivery method</th>
+                        </tr>
+
+
+                        <tr style="text-align: center;">
+                            <td>Example 1 (at 11s)</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part2/piano1_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part2/piano1_standard.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                         </tr>
+
+                        <tr style="text-align: center;">
+                            <td>Example 2 (at 10s)</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part2/piano2_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part2/piano2_standard.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                         </tr>
+
+                        <tr style="text-align: center;">
+                            <td>Example 3 (at 9s)</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part2/piano3_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part2/piano3_standard.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                         </tr>   
+
+                        <tr style="text-align: center;">
+                            <td>Example 4 (at 9s, 15s, 24s)</td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part2/guitar_ours.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                            <td>
+                                <audio controls="controls">
+                                    <source src="https://raw.githubusercontent.com/gladys0313/ICAD2021-notification-delivery/main/Part2/guitar_standard.wav" type="audio/wav">
+                                </audio>
+                            </td>
+                         </tr>                                               
+
+
+                     </tbody></table>
+
+                     <br>
+                     <br>                                     
+
 
 
             </div><!-- /.blurb -->
